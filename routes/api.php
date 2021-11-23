@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/messages', [MessageController::class, 'index', 'as' => 'message.index']);
+Route::get('/messages/{message}', [MessageController::class, 'show', 'as' => 'message.show'])->whereNumber('message');
+Route::post('/messages', [MessageController::class, 'store', 'as' => 'message.store']);
